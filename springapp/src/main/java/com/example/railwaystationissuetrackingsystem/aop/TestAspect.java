@@ -6,13 +6,19 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class TestAspect {
+public class UserAopAspect {
 
-    @Around("execution(* com.example.railwaystationissuetrackingsystem.service..*(..))")
-    public Object testAop(ProceedingJoinPoint pjp) throws Throwable {
+    @Around(
+      "execution(* com.example.railwaystationissuetrackingsystem.service.UserService.getAllUsers(..))"
+    )
+    public Object aroundGetAllUsers(ProceedingJoinPoint pjp) throws Throwable {
 
-        System.out.println("🔥 AOP HIT: " + pjp.getSignature());
+        System.out.println("AOP BEFORE getAllUsers()");
 
-        return pjp.proceed();
+        Object result = pjp.proceed();
+
+        System.out.println("AOP AFTER getAllUsers()");
+
+        return result;
     }
 }
