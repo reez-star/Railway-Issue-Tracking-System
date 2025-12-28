@@ -35,16 +35,17 @@ public class JwtFilter extends OncePerRequestFilter {
                 String username = claims.getSubject();
                 String role = (String) claims.get("role");
 
-                // Only proceed if the role is ADMIN
+            
                 if (username != null && "ADMIN".equals(role)) {
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                             username, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             } catch (Exception e) {
-                // Token is invalid/expired; context remains empty
+             
             }
         }
         filterChain.doFilter(request, response);
     }
+
 }
